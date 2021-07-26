@@ -1,0 +1,2 @@
+numpy==1.21.0
+scrambler @ git+https://github.com/tony7126/scramble.git@4dad0b9fba5cf4649460fca380c78a09f28d0f7b
