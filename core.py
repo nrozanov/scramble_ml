@@ -1,22 +1,15 @@
-from collections import namedtuple
-import re
-import argparse
+#!/usr/bin/env python3
 
-from random_solver import RandomSolver
-from q_learning_solver import QLearningSolver
-from scramble_game import ScrambleGame
+import argparse
+import re
+from collections import namedtuple
+
+from scramble_solver import RandomSolver, QLearningSolver, ScrambleGame
 
 RunStats = namedtuple("SolverStats", "RandResult MLResult MLBetter")
 UnsolvableExceptionRe = re.compile('Unsolvable')
 
-def run():
-    parser = argparse.ArgumentParser(description='Compare random and q learning algorithms efficiency while solving sliding puzzle game')
-    parser.add_argument('gsize', type=int, help='game dimension')
-    parser.add_argument('run_num', type=int, help='number of games to play')
-    args = parser.parse_args()
-
-    gsize, run_num = args.gsize, args.run_num
-
+def run(gsize, run_num):
     actions = ScrambleGame.get_actions()
     random_solver = RandomSolver(actions, gsize)
     q_learing_solver = QLearningSolver(actions, gsize)
@@ -35,4 +28,9 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    parser = argparse.ArgumentParser(description='Compare random and q learning algorithms efficiency while solving sliding puzzle game')
+    parser.add_argument('gsize', type=int, help='game dimension')
+    parser.add_argument('run_num', type=int, help='number of games to play')
+    args = parser.parse_args()
+    
+    run(args.gsize, args.run_num)

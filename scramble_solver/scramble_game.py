@@ -8,32 +8,28 @@ from scramble import (
 
 class ScrambleGame:
     def __init__(self, gsize, seednum):
-        self.__gsize = gsize
-        self.__game = ImageScrambleGame(gsize=gsize, seednum=seednum)
-
+        self.gsize = gsize
+        self.game = ImageScrambleGame(gsize=gsize, seednum=seednum)
 
     def is_solved(self):
-        state = self.__game.get_state()
+        state = self.game.get_state()
         tile_index = 0
-        for y in range(len(state)):
+        for y, _ in enumerate(state):
             line = state[y]
-            for x in range(len(line)):
+            for x, _ in enumerate(line):
                 element = state[y][x]
                 if element == -1:
-                    return tile_index == self.__gsize * self.__gsize - 1
+                    return tile_index == self.gsize * self.gsize - 1
                 if element != tile_index:
                     return False
                 tile_index += 1
         return True
 
-
     def step(self, action):
-        self.__game.move_blank(action)
-
+        self.game.move_blank(action)
 
     def get_state(self):
-        return self.__game.get_state()
-
+        return self.game.get_state()
 
     @staticmethod
     def get_actions():
